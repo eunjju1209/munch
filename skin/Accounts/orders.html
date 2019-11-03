@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="/css/accounts.css">
+<div class="container">
+    <div class="title">계정 및 주문관리</div>
+    <hr class="title-line">
+    <div class="contents-wrap">
+        <?php $this->load->view('common/left-menu.html'); ?>
+
+        <div class="account-contents">
+            <div class="tbls">
+                <div class="orders-tbl">
+                    <div class="account-tbl-dt">
+                        <table>
+                            <colgroup>
+                                <col width="10%">
+                                <col width="25%">
+                                <col width="25%">
+                                <col width="15%">
+                                <col width="25%">
+                            </colgroup>
+                            <tr>
+                                <th>주문번호</th>
+                                <th>주문</th>
+                                <th>날짜</th>
+                                <th>상태</th>
+                                <th>총계</th>
+                            </tr>
+                            <?php foreach($results as $key => $order){?>
+                            <tr>
+                                <td><?php echo $order['order_idx']?></td>
+                                <td><?php echo $order['goods_name']?></td>
+                                <td><?php echo $order['reg_dt']?></td>
+                                <td><?php echo $order_status[$order['status']]?></td>
+                                <td>&#8361; <?php echo number_format($order['total_amount'])?></td>
+                            </tr>
+                            <?php }?>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <?php echo $links; ?>
+        </div>
+    </div>
+</div>

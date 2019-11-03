@@ -1,0 +1,60 @@
+<style type="text/css">
+    .container { width: 1200px; min-width: 960px; margin: auto; text-align: center; padding: 70px 0; height: 100%; }
+    .container a:link, .container a:visited, .container a:hover, .container a:active { color: #545454; }
+    .login_form * { box-sizing: border-box; overflow: hidden; }
+    div.login_form {position:relative; text-align:center; padding-bottom: 70px; margin-bottom:140px;}
+    .login_form .inner {border:1px solid #cccccc; border-radius:8px; padding:50px 52px; width:500px; display:inline-block; margin: 50px 0; color:#545454; font-size:14px; }
+    input[type=text], input[type=password] {margin-bottom:7px; box-sizing: border-box; height:47px; }
+    .btn.btn-primary{width: 100%; height: 55px; background-color: #452b78; color:#ffffff; border: none; margin-top: 21px;}
+    .login_form div span:first-child{float:left;font-weight:bold;}
+    .login_form div span:nth-child(2){float:right;font-weight:bold; color:#452b78;}
+    .login_form #find_passwd { cursor: pointer; }
+    .login_form .sns_group {left:6px; top:10px;}
+    .login_form .sns_group img{margin-right:7px;}
+    .sns_group img {cursor:pointer;}
+</style>
+<div class="container">
+<div class="login_form contents">
+    <div class="title">로그인</div>
+    <hr class="title-line">
+    <div>
+        <div class="inner">
+            <form action="/member/login/" method="post">
+                <div>
+                <input type="text" class="form-control" name="email" placeholder="아이디(이메일)" value="">
+                <input type="password" class="form-control" name="password" placeholder="비밀번호" value="">
+                <input type="submit" class="btn btn-primary submit" value="로그인">
+                </div>
+            </form>
+            <div>
+                <a href="/member/findPasswordForm"><span id="find_passwd">비밀번호찾기</span></a>
+                <span><a href="/member/join_form">회원가입</a></span>
+            </div>
+        </div>
+        <?php //$this->load->view('/member/sns_login_form.phtml'); ?>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+       $(".btn.submit").click(function(){
+           if ($("input[name=email]").val() == "") {
+                alert("아이디를 입력해주세요.");
+                return false;
+           }
+
+           if ($("input[name=password]").val() == "") {
+               alert("비밀번호를 입력해주세요.");
+               return false;
+           }
+
+           $("form").submit();
+       });
+
+        $('.sns_login').on('click', function () {
+            var sns = $(this).data('sns');
+            window.open('/OAuth/snsLogin?sns=' + sns, '', 'width=500,height=400');
+        });
+
+    });
+</script>

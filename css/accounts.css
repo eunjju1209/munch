@@ -1,0 +1,358 @@
+.container {
+    width: 1200px;
+    min-width: 960px;
+    margin: auto;
+    text-align: center;
+    padding: 70px 0;
+    height: 100%;
+}
+
+.container a:link, .container a:visited, .container a:hover, .container a:active {
+    color: #454545;
+}
+
+.container hr:first-child {
+    width: 20px;
+    height: 0px;
+    border-top: 1px solid black;
+}
+
+.container .contents-wrap {
+    display: flex;
+    padding-top: 30px;
+}
+
+.container .account-lnb {
+    float: left;
+    width: 270px;
+    margin: 0px 38px 0px 0px;
+}
+
+.container .account-lnb .lnb-title {
+    background-color: #452A77;
+    border: solid 1px #452A77;
+    color: #ffffff;
+    height: 110px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.container .account-lnb ul {
+    width: 100%;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.container .account-lnb li {
+    align-items: center;
+    height: 50px;
+    line-height: 50px;
+    color: #2E2E2E;
+    font-size: 15px;
+    font-weight: bold;
+    border-bottom: solid 1px #CACACA;
+    border-left: solid 1px #CACACA;
+    border-right: solid 1px #CACACA;
+}
+
+.container .account-lnb li a {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.container .account-lnb li.selected {
+    background-color: #DAD6E5;
+    color: #42297A;
+    font-weight: bold;
+}
+
+.container .account-contents {
+    width: 100%;
+    height: 100%;
+}
+
+.container .account-contents .name {
+    text-align: left;
+    color: #3D3D3D;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.container .account-contents .tbls {
+
+}
+
+.container .account-contents .account-tbl {
+    display: inline-flex;
+    margin-top: 20px;
+    background-color: #F2F2F2;
+    border-radius: 4px;
+    width: 405px;
+    padding: 26px;
+    border: 1px solid #CBCBCB;
+}
+
+.container .account-contents .account-tbl:nth-child(odd) {
+    margin-right: 20px;
+}
+
+.container .account-contents .account-tbl-dt {
+    display: block;
+    width: 100%;
+}
+
+.account-tbl .account-tbl-title, .card-tbl .account-tbl-title {
+    display: table;
+    color: #43277B;
+    width: 100%;
+}
+
+.account-tbl .account-tbl-title button {
+    background-color: #43277B;
+    color: #ffffff;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 13px;
+    width: 100px;
+    height: 36px;
+    border: none;
+}
+
+.account-tbl table, .orders-tbl table {
+    font-size: 15px;
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 2px solid #656565;
+    border-bottom: 2px solid #656565;
+}
+
+.account-tbl table th, .orders-tbl table th {
+    color: #2E2E2E;
+    height: 50px;
+    border-bottom: 1px solid #666666;
+}
+
+.account-tbl table tr .orders-tbl table tr {
+    height: 50px;
+    color: #909090;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+table td {
+    height: 50px;
+    color: #8D8D8D;
+    border-bottom: 1px solid #8D8D8D;
+    font-weight: bold;
+    text-align: center;
+}
+
+table td button {
+    border-radius: 4px;
+    height: 34px;
+    background-color: #ffffff;
+    font-weight: bold;
+}
+
+table td button.restart-btn {
+    border: 1px solid #F24C5E;
+    color: #F24C5E;
+    width: 100%;
+}
+
+table td button.resubscribe-btn {
+    border: 1px solid #5DA6BE;
+    color: #5DA6BE;
+    width: 100%;
+}
+
+table td button.change-addr-btn {
+    border: 1px solid #47357F;
+    color: #47357F;
+}
+
+table td button.pause-btn {
+    border: 1px solid #FF5C2A;
+    color: #FF5C2A;
+}
+
+table td button.cancel-btn {
+    border: 1px solid #666666;
+    color: #666666;
+}
+
+.account-tbl-dt .card-info {
+    display: block;
+    background-color: #ffffff;
+    border-radius: 4px;
+    margin: auto;
+    border: 1px solid #D6D6D6;
+    width: 363px;
+    max-height: 91px;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 24px 0;
+}
+
+.account-tbl-dt .card-info .card-num {
+    font-weight: normal;
+    color: #949494;
+    margin: 0px;
+}
+
+.profile {
+    list-style: none;
+    font-size: 15px;
+    text-align: left;
+    padding: 0px;
+    font-weight: bold;
+}
+
+.profile span {
+    font-weight: normal;
+    color: #949494
+}
+
+.profile-tbl label, .card-tbl label {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.profile-tbl {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #CBCBCB;
+    border-radius: 4px;
+    padding: 40px 40px 0 40px;
+    box-sizing: border-box;
+}
+
+.profile-tbl .require-start {
+    color: #F50504;
+}
+
+.input-set, .input-set-half {
+    padding-bottom: 40px;
+    text-align: left;
+    width: 100%;
+}
+
+.input-set {
+
+}
+
+.check-text {
+    color: #656565;
+    font-size: 12px;
+}
+
+.input-set-half {
+    text-align: left;
+    display: inline-block;
+}
+
+.input-set-half div {
+    width: 50%;
+}
+
+.input-set-half div:first-child {
+    width: 50%;
+    float: left;
+}
+
+.input-set-half div:nth-child(2) {
+    width: 49%;
+    float: right;
+}
+
+.input-set-half .input-text.mid-short {
+    width: 250px;
+}
+
+.input-set-half .input-text.short {
+    width: 110px;
+}
+
+.input-set-half .input-text {
+    width: 100%;
+}
+
+.save-profile, .save-card {
+    float: right;
+    margin-top: 20px;
+}
+
+.save-profile button, .save-card button {
+    color: #ffffff;
+    background-color: #746AB0;
+    font-size: 14px;
+}
+
+.card-tbl {
+    width: 100%;
+    height: 600px;
+    background-color: #F2F2F2;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    padding: 40px 40px 0 40px;
+    box-sizing: border-box;
+}
+
+.order-tbl {
+    width: 100%;
+    height: 600px;
+    background-color: #F2F2F2;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    padding: 40px 40px 0 40px;
+    box-sizing: border-box;
+}
+
+.register-desc {
+    text-align: left;
+    font-size: 12px;
+    border-bottom: 1px solid;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+.using_card {
+    background-color: #ffffff;
+    border-radius: 3px;
+    border: 1px solid #D8D8D8;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    padding: 45px 0;
+    display: block;
+}
+
+.container .pagination {
+    width: 100%;
+    height: 30px;
+    margin: 30px 0;
+    color: #676767;
+}
+
+.container .pagination div {
+    border: solid 1px #676767;
+    min-width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin: 2px;
+    padding-top: 3px;
+    box-sizing: border-box;
+}
+
+.container .pagination .current {
+    background-color: #746AB0;
+    color: #ffffff;
+}
+
+#register-card{
+    background-color: #746AB0;
+}

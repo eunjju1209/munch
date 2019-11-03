@@ -1,0 +1,131 @@
+<link rel="stylesheet" href="/css/review.css">
+<div class="container">
+    <div class="title">간식 평가하기</div>
+    <hr class="title-line">
+    <div class="pets_info">
+        <?php if (!empty($pet_list)) : ?>
+            <?php foreach ($pet_list as $k => $pet) { ?>
+                <div class="<?php echo ($pet_idx == $pet['pet_idx']) ? 'box-selected' : 'box'; ?>"
+                     data-pet_idx="<?php echo $pet['pet_idx'] ?>">
+                    <div class="edit_img">
+                        <a href="/PetManage/edit/<?php echo !empty($pet['pet_idx']) ? $pet['pet_idx'] : '' ?>"><img
+                                    class="edit_img_btn" src="/img/common/edit_btn.png"></a>
+                    </div>
+                    <div class="box-img">
+                        <?php if ($pet['img_src']) { ?>
+                            <img src="<?php echo $pet['img_src'] ?>">
+                        <?php } elseif ($pet['pet_type'] == 'cat') { ?>
+                            <img src="/img/pet-img/pet-picture1.jpg">
+                        <?php } else { ?>
+                            <img src="/img/pet-img/pet-picture2.jpg">
+                        <?php } ?>
+                    </div>
+                    <div class="box-name"><?= $pet['name'] ?></div>
+                </div>
+            <?php } ?>
+        <?php endif; ?>
+        <?php if (empty($pet_list) || count($pet_list) < 5) { ?>
+            <a href="/PetManage/"><img src="/img/review/add_btn.png" alt="펫 추가"></a>
+        <?php } ?>
+    </div>
+    <div class="goods_area">
+    </div>
+</div>
+
+<div id="review_frame"></div>
+
+<script type="text/javascript">
+    var review_comment = $('.goods_list ul li .comment');
+
+    //리뷰레이어 내용 ajax
+    var reviewContents = function (pet_idx, goods_idx, img_src) {
+        $.ajax({
+            method: 'GET',
+            url: '/review/reviewLayer',
+            data: {
+                pet_idx: pet_idx,
+                goods_idx: goods_idx,
+                img_src : img_src
+            },
+            dataType: 'json',
+            complete: function (data) {
+                if (data.status == 200 && data.responseText.length > 0) {
+                    var review_frame = $('#review_frame');
+                    review_frame.html(data.responseText);
+
+                    commonShowLayer(review_frame);
+                    review_frame.show();
+
+                    registerReviewLayerEvent();
+                } else {
+                    alert('일시적으로 통신에 장애가 있습니다. 새로고침 후 재시도해주세요.');
+                    location.reload();
+                }
+            }
+        });
+    }
+
+    var registerReviewLayerEvent = function () {
+        var review_frame = $('#review_frame');
+        var dislike_area = $('.dislike_area');
+        var score_level = review_frame.find('input[name="score_level"]').val();
+
+        if (!score_level || typeof score_level == 'undefined') {
+            dislike_area.show();
+            return false;
+        }
+
+        review_frame.find('input[type="submit"]').on('click', function () {
+            var score_level = review_frame.find('input[name="score_level"]').val();
+            if (!score_level || typeof score_level == 'undefined') {
+                dislike_area.show();
+                return false;
+            }
+        });
+        review_frame.find('.close').on('click', function () {
+            review_frame.html('').hide();
+        });
+    };
+
+    $(document).ready(function () {
+        var boxs = $('.box,.box-selected');
+        var goods_area = $('.goods_area');
+
+        boxs.on('click', function () {
+            onClickBox($(this));
+        })
+
+        var onClickBox = function (elt) {
+            if (elt.hasClass('box-selected')) {
+                return;
+            }
+
+            boxReset();
+            elt.removeClass('box').addClass('box-selected');
+            loadHtml(elt.data('pet_idx'));
+        }
+
+        var boxReset = function () {
+            boxs.removeClass('box-selected').addClass('box');
+        }
+
+        var loadHtml = function (pet_idx) {
+            $.ajax({
+                method: 'GET',
+                url: '/review/goodsList',
+                data: {
+                    pet_idx: pet_idx
+                },
+                dataType: 'json',
+                complete: function (data) {
+                    if (data.status == 200) {
+                        goods_area.html(data.responseText);
+                    }
+                }
+            });
+        }
+
+        loadHtml(<?php echo $pet_idx; ?>);
+    });
+
+</script>

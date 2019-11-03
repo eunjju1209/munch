@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="/css/complete.css">
+<div class="container">
+    <div class="title">주문서</div>
+    <hr class="title-line">
+    <div id="cont-tit">
+        <span class="point">#<?php echo $order_info['order_idx']?></span> 주문이 <span class="point"><?php echo substr($order_info['reg_dt'],0,10)?></span>에 접수되었으며, 현재 <span
+            class="point"><?php echo $order_status[$order_info['status']]?></span> 상태입니다.
+    </div>
+    <div class="contents">
+        <div class="top-ord-detail">
+            <div class="tbl-title">
+                <span style="float: left;"><b>·주문상세</b></span>
+            </div>
+            <div class="ord-detail">
+                <div class="prd"><b>상품</b></div>
+                <div class="tot"><b>총계</b></div>
+            </div>
+            <div class="ord-detail">
+                <div class="prd">
+                    <span class="point">먼치세트 정기 배송 - <?php echo date('Y년 m월')?> 시작</span>X1<br>
+                    반려견 품종 :
+                    <?php
+                    if(!empty($order_info['pet_type']) && !empty($order_info['pet_kind'])){
+                     echo ($order_info['pet_type']==='dog') ? $dog_kind[trim($order_info['pet_kind'])] : $cat_kind[$order_info['pet_kind']];
+                    }?>
+                   <br>
+                    구독 기간 : <?php echo $order_info['subscribe_month']?>개월<br>
+                    <!--CJ대한통운 (<span class="point">1111111</span>, 결제완료)-->
+                </div>
+                <div class="tot">&#8361; <?php echo number_format($order_info['last_amount'])?>원</div>
+            </div>
+        </div>
+
+        <div class="tot-price-detail">
+            <div class="">
+                <span>합계 : </span><strong>&#8361; <?php echo number_format($order_info['last_amount'])?>원</strong><br>
+                <span>배송 : </span><strong>무료배송</strong><br>
+                <span>결제방법 : </span><strong>나이스페이 정기결제</strong><br>
+                <span>총계 : </span><strong class="point">&#8361; <?php echo number_format($order_info['last_amount'])?>원</strong><br>
+            </div>
+        </div>
+
+        <div class="ord-relation">
+            <div class="tbl-title">
+                <span style="float: left;"><b>·관련 정기결제권</b></span>
+            </div>
+            <?php if(!empty($subscribe)){?>
+                <div class="ord-detail">
+                  <table>
+                      <tr>
+                          <th>정기결재권</th>
+                          <th>상태</th>
+                          <th>다음결제</th>
+                          <th>총합</th>
+                          <th></th>
+                      </tr>
+                      <?php foreach($subscribe as $k => $data){ ?>
+                          <tr>
+                              <td class="point">#<?php echo $data['subscribe_idx']?></td>
+                              <td><?php echo $subscribe_status[$data['status']]?></td>
+                              <td><?php echo !empty($next_subscribe_data['schedule_dt']) ? $next_subscribe_data['schedule_dt'] : '-'?></td>
+                              <td>&#8361; <?php echo number_format($order_info['last_amount'])?></td>
+                              <td><a href="/Order/subscriptionComplete?subscribe_idx=<?php echo $data['subscribe_idx']?>">
+                                  <button type="button" class="btn">보기</button></a></td>
+                          </tr>
+                      <?php }?>
+                  </table>
+                    <a href="/subscribe"><button type="button"  class="btn-purple-square">다시 주문하기</button></a>
+                </div>
+            <?php }?>
+        </div>
+
+        <div class="user-detail">
+            <div class="tbl-title">
+                <span style="float: left;"><b>·주문상세</b></span>
+            </div>
+            <div class="ord-detail">
+                <label><b>이메일 : </b></label><span><?php echo $this->session->userdata['email']?></span><br>
+                <label><b>전화번호 : </b></label><span><?php echo $this->session->userdata['telphone']?></span><br>
+                <label><b>배송주소 : </b></label><span>(<?php echo $address_info['zipcode']?>)<?php echo $address_info['addr1st'].' '.$address_info['addr2nd']?></span><br>
+            </div>
+        </div>
+    </div>
+</div>

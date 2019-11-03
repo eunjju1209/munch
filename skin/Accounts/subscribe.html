@@ -1,0 +1,161 @@
+<link rel="stylesheet" href="/css/accounts.css">
+<div class="container">
+    <div class="title">계정 및 주문관리</div>
+    <hr class="title-line">
+    <div class="contents-wrap">
+        <?php $this->load->view('common/left-menu.html'); ?>
+        <div class="account-contents">
+            <div class="tbls">
+                <div class="orders-tbl">
+                    <div class="account-tbl-dt">
+                        <table>
+                            <colgroup>
+                                <col width="5%">
+                                <col width="15%">
+                                <col width="15%">
+                                <col width="10%">
+                                <col width="15%">
+                                <col width="15%">
+                                <col width="25%">
+                            </colgroup>
+                            <tr>
+                                <th>No.</th>
+                                <th>주문</th>
+                                <th>아이</th>
+                                <th>상태</th>
+                                <th>다음결제</th>
+                                <th>총합</th>
+                                <th>작업</th>
+                            </tr>
+                            <?php foreach($results as $key => $data){?>
+                            <tr data-subscribe_idx="<?php echo $data['subscribe_idx']?>">
+                                <td><?php echo $data['subscribe_idx']?></td>
+                                <td><?php echo $data['title']?></td>
+                                <td><?php echo $data['name']?></td>
+                                <td><?php echo $subscribe_status[$data['status']]?></td>
+                                <td><?php echo !empty($data['schedule_dt']) ? $data['schedule_dt'] : '-'?></td>
+                                <td>&#8361; <?php echo number_format($data['total_amount'])?></td>
+                                <td>
+                                    <div style="width:100%;margin: auto;">
+                                        <?php if($data['status']==='active'){?>
+                                        <button type="button" class="change-addr-btn">주소변경</button>
+                                        <button type="button" class="pause-btn">일시중지</button>
+                                        <button type="button" class="cancel-btn">취소</button>
+                                        <?php } elseif(in_array($data['status'],['pause'])){ ?>
+                                        <button type="button" class="restart-btn">다시시작</button>
+                                        <?php } elseif(in_array($data['status'],['cancel'])){ ?>
+                                        <button type="button" class="resubscribe-btn" data-period="<?=$data['subscribe_month']?>" data-pet_idx="<?=$data['pet_idx']?>">재신청</button>
+                                        <?php } ?>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php }?>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <?php echo $links; ?>
+        </div>
+    </div>
+</div>
+<?php $this->load->view('common-layer/change-address.html');?>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('.pause-btn').on('click', function () {
+            if (!confirm('구독을 일시중지 하시겠습니까?')) {
+                return false;
+            }
+            var subscribe_idx = $(this).closest('tr').data('subscribe_idx');
+            $.ajax({
+                method: 'get',
+                url: '/accounts/pauseSubscribe',
+                data: {
+                    subscribe_idx: subscribe_idx
+                },
+                complete: function (data) {
+                    if (data.responseText === 'success') {
+                        alert('구독이 정지되었습니다.');
+                    } else {
+                        alert('구독 정지가 실패하였습니다. 잠시 후 재시도해주세요.');
+                    }
+                },
+                complete: function () {
+                    location.reload();
+                }
+            })
+        });
+
+        $('.cancel-btn').on('click', function () {
+            if (!confirm('구독을 취소하시겠습니까?')) {
+                return false;
+            }
+            var subscribe_idx = $(this).closest('tr').data('subscribe_idx');
+            $.ajax({
+                method: 'get',
+                url: '/accounts/cancelSubscribe',
+                data: {
+                    subscribe_idx: subscribe_idx
+                },
+                complete: function (data) {
+                    if (data.responseText === 'success') {
+                        alert('구독이 정상적으로 취소되었습니다.');
+                    } else {
+                        alert('구독 취소가 실패하였습니다. 잠시 후 재시도해주세요.');
+                    }
+                },
+                error: function () {
+                    alert('구독 취소가 실패하였습니다. 잠시 후 재시도해주세요.');
+                },
+                complete: function () {
+                    location.reload();
+                }
+            })
+        });
+
+        $('.restart-btn').on('click', function () {
+            if (!confirm('구독을 재시작하시겠습니까?')) {
+                return false;
+            }
+            var subscribe_idx = $(this).closest('tr').data('subscribe_idx');
+            $.ajax({
+                method: 'get',
+                url: '/accounts/restartSubscribe',
+                data: {
+                    subscribe_idx: subscribe_idx
+                },
+                complete: function (data) {
+                    if (data.responseText === 'success') {
+                        alert('구독이 재시작되었습니다.');
+                    } else {
+                        alert('구독 재시작이 실패하였습니다. 잠시 후 재시도해주세요.');
+                    }
+                },
+                error: function () {
+                    alert('구독 재시작이 실패하였습니다. 잠시 후 재시도해주세요.');
+                },
+                complete: function () {
+                    location.reload();
+                }
+            })
+        });
+
+        $('.change-addr-btn').on('click', function () {
+            var subscribe_idx = $(this).closest('tr').data('subscribe_idx');
+            var layer = $('#change-address-layer');
+
+            layer.show();
+            commonShowLayer(layer);
+            layer.find('input[name="subscribe_idx"]').val(subscribe_idx);
+        });
+
+        $('.resubscribe-btn').on('click', function () {
+            var pet_idx = $(this).data('pet_idx');
+            var period = $(this).data('period');
+            if (confirm('구독을 재신청하시겠습니까?')) {
+                location.href = '/subscribe/add?pet_idx=' + pet_idx + '&period=' + period;
+            }
+        });
+
+    })
+</script>

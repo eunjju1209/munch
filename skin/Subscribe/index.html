@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="/css/subscribe.css">
+<div class="container">
+    <div class="title">먼치세트 구독</div>
+    <hr>
+    <div style="display: flex;">
+        <div class="btn-prev">
+            <input type="button" value="이전 단계로">
+        </div>
+        <div class="btn-next">
+            <input type="button" value="다음 단계로">
+        </div>
+    </div>
+
+    <div class="tab-menu">
+        <ul>
+            <li data-contents="select-pet">아이 선택</li>
+            <li data-contents="set-period">기간 설정</li>
+            <li data-contents="pay-info">결제 정보</li>
+        </ul>
+    </div>
+    <div class="tab-contents select-pet">
+        <?php if(!empty($pets)){?>
+        <?php foreach($pets as $idx => $pet){?>
+        <div class="box" data-pet_idx="<?php echo $pet['pet_idx']?>">
+            <div class="box-img">
+                <?php if($pet['img_src']){ ?>
+                <img src="<?php echo $pet['img_src']?>">
+                <?php } elseif($pet['pet_type']=='cat') {?>
+                <img src="/img/pet-img/pet-picture1.jpg">
+                <?php } else {?>
+                <img src="/img/pet-img/pet-picture2.jpg">
+                <?php }?>
+            </div>
+            <div class="box-name"><?php echo $pet['name']?></div>
+        </div>
+        <?php }?>
+        <?php } else { ?>
+        <div style="display: block;padding: 30px;">
+            먼저 내 아이를 등록해주세요. <br>
+        </div>
+            <a href="/PetManage/"><img src="/img/review/add_btn.png" alt="내 아이 등록하기"></a>
+        <?php }?>
+    </div>
+    <div class="tab-contents set-period">
+        <?php if($subscribe_list){?>
+        <?php foreach($subscribe_list as $key => $val){?>
+        <div class="box" data-period="<?php echo $val['month_count']?>">
+            <div class="box-img"><img class="default box_month_<?php echo $key+1?>"></div>
+            <div class="box-name"><?php echo $val['title']?> : <?php echo number_format($val['sell_price'])?>원</div>
+        </div>
+        <?php }?>
+        <?php }?>
+    </div>
+    <div class="tab-contents pay-info" style="display: none;">
+    </div>
+    <div class="what-munch">
+        <ul>
+            <li><a href="http://munchmunch.kr/board/lists?board_idx=9">먼치세트가 뭔가요?</a>
+            <li><a href="http://munchmunch.kr/board/lists?board_idx=10">굳이 매달 구독을 해야하나요?</a> </li>
+        </ul>
+    </div>
+
+</div>
+
+<script src="/js/subscribe.js"></script>

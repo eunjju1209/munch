@@ -1,0 +1,208 @@
+<link rel="stylesheet" href="/css/index.css">
+<div id="dimmed"></div>
+<div class="container">
+    <section class="main-do-munch">
+        <div class="sub-do-munch">
+            <div class="txt-area">
+                <div style="font-weight: bold;font-family: 'Gothic A1';">뇸뇸!</div>
+                <div>내 아이의 한 달 간식,<br><span class="point">먼치</span>하세요!</div>
+                <div>
+                    <hr class="">
+                </div>
+                <div>내 반려동물을 위한 간식 정기배송 서비스<br>우리 아이들이 잘 먹는 건강한 간식들을 단 한번의 주문으로 매달 편하게 받아보세요.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="main-guide">
+        <div class="sub-guide">
+            <div class="contents">
+                <p>
+                    <span class="big-title"><strong>"먼치세트"</strong>와 <strong>매달</strong></span><br>
+                    <span class="small-title">새로운 간식을 경험하세요!</span>
+                </p>
+                <div class="info_img">
+                    <img src="/img/main/bg-info-1.png">
+                    <span>내 아이의 <b style="color:#ffffff;background-color: #6E7EDE">기본정보</b>를 입력해주세요.</span>
+                </div>
+                <div class="info_img">
+                    <img src="/img/main/bg-info-2.png">
+                    <span>내 아이가 좋아하는 <b style="color:#ffffff;background-color: #EA4E37">건강한 간식</b>을 집에서 편하게 받으세요.</span>
+                </div>
+                <div class="info_img">
+                    <img src="/img/main/bg-info-3.png">
+                    <span>내 아이와 함께 <b style="color:#ffffff;background-color: #5C8448">즐거운 간식시간</b>을 보내세요.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="main-explanation">
+        <div class="sub-explanation">
+            <div class="big-title"><strong>"먼치세트"</strong> 안에는?</div>
+            <div class="square-box">
+                <div class="square-box-bg"></div>
+                <div class="desc">
+                    <div class="desc-icon"><img src="/img/main/munch_icon1.png"></div>
+                    <div class="desc-txt">
+                        <p>건강한 간식만 엄선</p>
+                        100% 원산지 표시, 전제품 원재료 및<br>
+                        성분/품질 검사를 마친 프리미엄 간식만을<br>
+                        엄선하여 취급합니다.
+                    </div>
+                </div>
+
+                <div class="desc">
+                    <div class="desc-icon"><img src="/img/main/munch_icon2.png"></div>
+                    <div class="desc-txt">
+                        <p>맞춤 간식 서비스</p>
+                        반려동물의 특이사항과 기호를 바탕으로<br>
+                        매달 새롭게, 우리 아이만을 위한 맞춤 간식을<br>
+                        받아보세요.
+                    </div>
+                </div>
+
+                <div class="desc">
+                    <div class="desc-icon"><img src="/img/main/munch_icon3.png"></div>
+                    <div class="desc-txt"><p>총 5만원 상당의 간식</p>
+                        먼치박스는 반려동물에 맞는 간식 10종으로<br>
+                        구성됩니다. 총 5만원 상당의 구성을 <?php echo number_format($goodsPrice[0]['sell_price'])?><br>
+                        (12개월 구독시)원에 받아보세요.
+                    </div>
+                </div>
+                <div class="desc">
+                    <div class="desc-icon"><img src="/img/main/munch_icon4.png"></div>
+                    <div class="desc-txt"><p>무료배송 / 위약금 0원</p>
+                        배송비 0원! 무료배송으로 다양한 간식들을<br>
+                        받아보세요. 또한, 구독기간 중 사정상 취소를<br>
+                        원하시면 위약금 없이 도와드립니다.
+                    </div>
+                </div>
+                <div class="desc-price">
+                    <span class="normal">이 모든 것이</span>
+                    <span class="point">월 <?php echo number_format($goodsPrice[0]['sell_price'])?>원</span>
+                </div>
+                <div class="desc-price">
+                    12개월 구독 시
+                </div>
+            </div>
+    </section>
+
+    <section class="main-product-introduction" id="goods">
+        <div class="sub-product-introduction">
+            <div class="big-title">이 달의 <strong>"먼치세트"</strong></div>
+            <div class="select-pet-area">
+                <div class="btn-select-pet dog on">
+                    <div><img src="/img/common/dduri_border.png">강아지</div>
+                </div>
+                <div class="btn-select-pet cat">
+                    <div><img src="/img/common/yeti_border.png">고양이</div>
+                </div>
+            </div>
+
+            <?php if (!empty($parentGoods)) { ?>
+                <?php foreach ($parentGoods as $pkey => $p_goods) {
+                    $img_src = [];
+                    if (!empty($p_goods['img_src'])) {
+                        $img_src = explode('|', $p_goods['img_src']);
+                    }
+                    ?>
+                    <div id="munch-set-<?= $p_goods['pet_type'] ?>" <?php echo ($pkey == 0) ? 'style="display:block"' : 'style="display:none"' ?>>
+                        <div class="munch-set-img"><img src="<?= $img_src[0] ?>"></div>
+                        <div class="desc_txt" style="font-size: 14px;">간식 이름을 클릭하시면 상세설명을 볼 수 있습니다.</div>
+                        <div class="goods-desc">
+                            <ul>
+                                <?php
+                                if (!empty($childGoods)) {
+                                    $idx['C'] = 0;
+                                    $idx['D'] = 0;
+                                    foreach ($childGoods as $key => $goods) {
+                                        $petType = ($p_goods['pet_type'] == 'dog') ? 'D' : 'C';
+                                        if ($p_goods['pet_type'] == $goods['pet_type']) {
+                                            $idx[$petType]++;
+                                            ?>
+                                            <li data-goods_idx="<?= $goods['goods_idx'] ?>">
+                                                <span><?= $petType . $idx[$petType] ?></span><?= $goods['title'] ?>
+                                            </li>
+                                        <?php } ?>
+                                    <?php } ?>
+                                <?php } ?>
+                            </ul>
+                            <p id="point">※ 반려동물의 특성에 따라 구성품이 조금 다를 수 있습니다.</p>
+                        </div>
+                    </div>
+                <?php } ?>
+            <?php } ?>
+        </div>
+    </section>
+    <iframe src="" id="goods-detail-frame" frameborder="0" scrolling="no"></iframe>
+</div>
+
+<script type="text/javascript">
+    var dimmed = $('#dimmed');
+    var frame = $('#goods-detail-frame');
+    var goods_src = '/main/goodsDetail?goods_idx=';
+    var goods_li = $('.goods-desc').find('li');
+    var btns = $('.btn-select-pet');
+
+    $(document).ready(function () {
+        goodsViewAction();
+
+        $('.btn-select-pet.dog').on('click', function () {
+            btns.removeClass('on');
+            $(this).addClass('on');
+            $('#munch-set-cat').hide();
+            $('#munch-set-dog').show();
+        })
+        $('.btn-select-pet.cat').on('click', function () {
+            btns.removeClass('on');
+            $(this).addClass('on');
+            $('#munch-set-dog').hide();
+            $('#munch-set-cat').show();
+        })
+
+        dimmed.on('click', function () {
+            dimmed.hide();
+            frame.attr('src', '');
+            frame.hide();
+            $('html').css('overflow-y', '');
+        })
+
+        goods_li.on('click', function () {
+            var goods_idx = $(this).data('goods_idx');
+            var top = $(document).scrollTop();
+            var height = $(window).height();
+            var left = $(document).width();
+
+            goods_li.removeClass('selected');
+            $(this).addClass('selected');
+
+            dimmed.show();
+            frame.show();
+
+            frame.css('top', top + ((height - frame.height()) / 2) + 'px');
+            frame.css('left', (left - frame.width()) / 2 + 'px');
+            frame.attr('src', goods_src + goods_idx);
+
+            $('html').css('overflow-y', 'hidden');
+        })
+
+    });
+
+    function changeGoodsEvent(type) {
+        var elt = $('.goods-desc').find('li.selected');
+
+        if (type === 'next') {
+            var chgElt = (elt.next().length > 0) ? elt.next() : goods_li.first();
+        } else {
+            var chgElt = (elt.prev().length > 0) ? elt.prev() : goods_li.last();
+        }
+
+        elt.removeClass('selected');
+        chgElt.addClass('selected');
+
+        var goods_idx = chgElt.data('goods_idx') || 0;
+        frame.attr('src', goods_src + goods_idx);
+    }
+
+</script>
